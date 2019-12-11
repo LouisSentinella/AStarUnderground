@@ -3,10 +3,13 @@ import csv
 import traceback
 import copy
 from tkinter import *
+##TODO
+#*Add cost for changing stations
+#*Render Multiple train lines on one stations
+#*Add ability to go via another station 
 
 
-
-canvas_width = 1150
+canvas_width = 1450
 canvas_height = 900
 
 master = Tk()
@@ -259,12 +262,12 @@ def aStarAlgorithm(startLoc, endLoc):
 
 lineBakerloo = trainLine("Bakerloo", 12,"#A45A2A" )
 lineCentral = trainLine("Central", 12,"#da291c" )
-lineCircle = trainLine("Circle", 26,"#F7D117" )
+lineCircle = trainLine("Circle", 28,"#F7D117" )
 lineDistrict = trainLine("District", 20 , "#007a33")
-lineHammersmithAndCity = trainLine("Hammersmith & City", 11," #eb9ca8" )
+lineHammersmithAndCity = trainLine("Hammersmith & City", 11,"#eb9ca8" )
 lineJubilee = trainLine("Jubilee", 7,"#7c878e" )
 lineMetropolitan = trainLine("Metropolitan", 9,"#8a004f")
-lineNorthern = trainLine("Northern", 160 , "#000000")
+lineNorthern = trainLine("Northern", 16 , "#000000")
 linePiccadilly = trainLine("Piccadilly", 12, "#10069F")
 lineVictoria = trainLine("Victoria", 8,"#00a3e0")
 lineWaterlooAndCity = trainLine("Waterloo & City", 2,"#6ECEB2")
@@ -384,7 +387,7 @@ for i in stationList:
     coordsY = coordsY*10000
     coordsX = 1 + coordsX
     coordsX = coordsX*10000
-    coordsX -= 8320
+    coordsX -= 7985
     coordsY -= 5000
     #coordsY = 500-coordsY
     coordsY = 500-coordsY
@@ -422,11 +425,11 @@ for i in stationList:
 b1 = Button(master, text="Find Route", command = startUp)
 e1 = Entry(master)
 e2 = Entry(master)
-b1.place(x=900, y=150)
-e1.place(x=900, y=180)
-e2.place(x=900, y=200)
+b1.place(x=1250, y=150)
+e1.place(x=1250, y=180)
+e2.place(x=1250, y=200)
 T = Text(master, height = 20, width = 25)
-T.place(x=900, y= 230)
+T.place(x=1250, y= 230)
 
 mainloop()
 
