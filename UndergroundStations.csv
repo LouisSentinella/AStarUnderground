@@ -1,4 +1,4 @@
-ergro,Green Park,GP,51.50676,-0.142478,"[[linePiccadilly, 5], [lineVictoria,3], [lineJubilee,2]]"
+nodeGreenPark,Green Park,GP,51.50676,-0.142478,"[[linePiccadilly, 5], [lineVictoria,3], [lineJubilee,2]]"
 nodeBondStreet,Bond Street,BS,51.513798,-0.149614,"[[lineCentral, 4], [lineJubilee,1]]"
 nodeTottenhamCourtRoad,Tottenham Court Road,TCR,51.516211,-0.13111," [[lineCentral,6],[lineNorthern,4]]"
 nodePiccadillyCircus,Piccadilly Circus,PC,51.509697,-0.133712,"[[linePiccadilly,6], [lineBakerloo,5]]"
@@ -36,3 +36,6 @@ nodeEmbankment,Embankment,E,51.507312,-0.122367,"[[lineBakerloo,7],[lineCircle,1
 nodeLambethNorth,Lambeth North,LN,51.49913,-0.111768,"[[lineBakerloo,8]]"
 nodeElephantAndCastle,Elephant And Castle,EAC,51.494027,-0.098726,"[[lineBakerloo, 9], [lineNorthern, 15]]"
 nodeEdgewareRoad,Edgeware Road,ER,51.519998,-0.167668,"[[lineCircle,0],[lineCircle,27],[lineHammersmithAndCity,1], [lineBakerloo,1]]"
+nodeBaywater,Baywater,B,51.512111,-0.187902,"[[lineCircle, 2], [lineDistrict,2]]"
+,,,,,
+,,,,,
