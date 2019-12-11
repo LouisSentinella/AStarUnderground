@@ -312,7 +312,8 @@ with open("UndergroundStations.csv", 'rt') as text_file:
 stationList = []
 for i in aList:
     try:
-        #reading in the file, and dynamically making objects for the stations. 
+        #reading in the file, and dynamically making objects for the stations.
+        print(i[1])
         globals()[i[0]] = Station(i[1], i[2], i[3], i[4], i[5])
         #print(i[5])
         for j in eval(i[5]):
