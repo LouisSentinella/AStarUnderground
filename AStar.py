@@ -3,13 +3,10 @@ import csv
 import traceback
 import copy
 from tkinter import *
-##TODO
-#*Add cost for changing stations
-#*Render Multiple train lines on one stations
-#*Add ability to go via another station 
 
 
-canvas_width = 1450
+
+canvas_width = 1100
 canvas_height = 900
 
 master = Tk()
@@ -208,7 +205,7 @@ def lineTravelled(nodeOne, nodeTwo):
     
 def aStarAlgorithm(startLoc, endLoc):
 
-    T.delete('1.0', END)
+    
 
     routeQueue = pQueue(1000)
 
@@ -252,22 +249,22 @@ def aStarAlgorithm(startLoc, endLoc):
 
         #print(routeQueue)
         #input("")
-    #T.insert(END,"\n")
-    print(str(round(currentRoute.fval,2)))
+    print("\n")    
     for i in currentRoute.path:
-        T.insert(END,i + "\n")
-    T.insert(END,"\nTotal Distance:\n" + str(round(currentRoute.fval,2)) + "km.")
+
+        print(i)
+    print("\nTotal Distance:", str(round(currentRoute.fval,2)), "km.")
     #print(endLoc.path)
   
 
 lineBakerloo = trainLine("Bakerloo", 12,"#A45A2A" )
 lineCentral = trainLine("Central", 12,"#da291c" )
-lineCircle = trainLine("Circle", 28,"#F7D117" )
+lineCircle = trainLine("Circle", 26,"#F7D117" )
 lineDistrict = trainLine("District", 20 , "#007a33")
-lineHammersmithAndCity = trainLine("Hammersmith & City", 11,"#eb9ca8" )
+lineHammersmithAndCity = trainLine("Hammersmith & City", 11," #eb9ca8" )
 lineJubilee = trainLine("Jubilee", 7,"#7c878e" )
 lineMetropolitan = trainLine("Metropolitan", 9,"#8a004f")
-lineNorthern = trainLine("Northern", 16 , "#000000")
+lineNorthern = trainLine("Northern", 160 , "#000000")
 linePiccadilly = trainLine("Piccadilly", 12, "#10069F")
 lineVictoria = trainLine("Victoria", 8,"#00a3e0")
 lineWaterlooAndCity = trainLine("Waterloo & City", 2,"#6ECEB2")
@@ -295,44 +292,6 @@ for i in aList:
 def mainLoopWhile(window):
         window.update_idletasks()
         window.update()
-##def main():
-##
-##    #print(stationList)
-##    for i in stationList:
-##        print(i.name)
-##        
-##    print("\n")#taking inputs and checking whether they are actual stations. 
-##    startIn = str(input("Where would you like to navigate from?"))
-##    endIn = str(input("Where would you like to navigate to?"))
-##    endIn = endIn.upper()
-##    endIn = endIn.replace(" ", "")
-##    endIn = endIn.replace("'", "")
-##    startIn = startIn.upper()
-##    startIn = startIn.replace(" ", "")
-##    startIn = startIn.replace("'", "")
-##    #print(startIn)
-##    #print(endIn)
-##    
-##    
-##    for i in stationList:
-##        if ((((i.name).upper()).replace(" ", "")).replace("'", "")) == startIn:
-##            startStation = i
-##            break
-##    for i in stationList:
-##        if ((((i.name).upper()).replace(" ", "")).replace("'", "")) == endIn:
-##            endStation=i
-##            break
-##    if (startIn == "CABBAGE") or (endIn=="CABBAGE"):
-##        for i in range(0,1000):
-##            globals()["window" + str(i)] = Tk()
-##            globals()["canvas" + str(i)] = Canvas(eval("window" + str(i)), width=1000, height=1000)
-##            eval("canvas" + str(i)).pack()
-##            photo = PhotoImage(file="ING-green-cabbage-2-main.gif")
-##            eval("canvas" + str(i)).create_image(0,0,image=photo, anchor=tkinter.NW)
-##            eval("window" + str(i)).mainloop()
-##            
-##    aStarAlgorithm(startStation, endStation)
-
 def main():
 
     #print(stationList)
@@ -340,8 +299,8 @@ def main():
         print(i.name)
         
     print("\n")#taking inputs and checking whether they are actual stations. 
-    startIn = e1.get()
-    endIn = e2.get()
+    startIn = str(input("Where would you like to navigate from?"))
+    endIn = str(input("Where would you like to navigate to?"))
     endIn = endIn.upper()
     endIn = endIn.replace(" ", "")
     endIn = endIn.replace("'", "")
@@ -374,8 +333,7 @@ def startUp():
     try:
         main()
     except:
-        T.delete('1.0', END)
-        T.insert(END, "Invalid Input, try again!")
+        print("Invalid Input, try again!")
         #traceback.print_exc()
         main()
 
@@ -387,7 +345,7 @@ for i in stationList:
     coordsY = coordsY*10000
     coordsX = 1 + coordsX
     coordsX = coordsX*10000
-    coordsX -= 7985
+    coordsX -= 8320
     coordsY -= 5000
     #coordsY = 500-coordsY
     coordsY = 500-coordsY
@@ -422,15 +380,12 @@ for i in stationList:
     w.create_oval(i.xCoords, i.yCoords, i.xCoords  + 10, i.yCoords + 10, fill="#476042")
     w.create_text(i.xCoords,i.yCoords-9,fill="#000000",font="Times 10 italic bold",
                         text=i.name)
-b1 = Button(master, text="Find Route", command = startUp)
+b1 = Button(master, text="This is a button", command = startUp)
 e1 = Entry(master)
 e2 = Entry(master)
-b1.place(x=1250, y=150)
-e1.place(x=1250, y=180)
-e2.place(x=1250, y=200)
-T = Text(master, height = 20, width = 25)
-T.place(x=1250, y= 230)
-
+b1.place(x=900, y=150)
+e1.place(x=900, y=170)
+e2.place(x=900, y=190)
 mainloop()
 
 
