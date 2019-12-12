@@ -9,7 +9,7 @@ from tkinter import *
 #*Add ability to go via another station 
 
 
-canvas_width = 1450
+canvas_width = 1950
 canvas_height = 900
 
 master = Tk()
@@ -32,8 +32,8 @@ class pQueue(object):
 
     def __str__(self):
         report = ""
-        for i in self.__qList:
-            print(i)
+        #for i in self.__qList:
+            #print(i)
         report += "\n"
         return report
 
@@ -284,7 +284,7 @@ def aStarAlgorithm(startLoc, endLoc):
 
 
 
-    print(str(round(currentRoute.fval,2)))
+    #print(str(round(currentRoute.fval,2)))
     for i in currentRoute.path:
         T.insert(END,i + "\n")
     T.insert(END,"\nTotal Distance:\n" + str(round(currentRoute.fval,2)) + "km.")
@@ -303,7 +303,7 @@ linePiccadilly = trainLine("Piccadilly", 12, "#10069F")
 lineVictoria = trainLine("Victoria", 8,"#00a3e0")
 lineWaterlooAndCity = trainLine("Waterloo & City", 2,"#6ECEB2")
 #print(nodeNottingHillGate)
-trainLineList = [lineBakerloo, lineCentral, lineCircle, lineDistrict, lineHammersmithAndCity,lineJubilee, lineMetropolitan, lineNorthern, linePiccadilly, lineVictoria, lineWaterlooAndCity] 
+trainLineList = [lineBakerloo, lineCentral,lineDistrict, lineHammersmithAndCity,lineJubilee, lineMetropolitan, linePiccadilly, lineVictoria, lineWaterlooAndCity,lineCircle, lineNorthern] 
 with open("UndergroundStations.csv", 'rt') as text_file:
     reader = csv.reader(text_file)
     aList = list(reader)
@@ -313,7 +313,7 @@ stationList = []
 for i in aList:
     try:
         #reading in the file, and dynamically making objects for the stations.
-        print(i[1])
+        #print(i[1])
         globals()[i[0]] = Station(i[1], i[2], i[3], i[4], i[5])
         #print(i[5])
         for j in eval(i[5]):
@@ -321,7 +321,7 @@ for i in aList:
             j[0].addStation(eval(i[0]), j[1])
         stationList.append(eval(i[0]))
     except:
-        traceback.print_exc()
+        #traceback.print_exc()
         print("There is an error with your data – please correct it.")      
 
 def mainLoopWhile(window):
@@ -368,10 +368,10 @@ def mainLoopWhile(window):
 def main():
 
     #print(stationList)
-    for i in stationList:
-        print(i.name)
+    #for i in stationList:
+        #print(i.name)
         
-    print("\n")#taking inputs and checking whether they are actual stations. 
+    #print("\n")#taking inputs and checking whether they are actual stations. 
     startIn = e1.get()
     endIn = e2.get()
     endIn = endIn.upper()
@@ -421,28 +421,29 @@ for i in stationList:
     coordsY= i.lat
     coordsX = i.long
     coordsY = coordsY - 51
-    coordsY = coordsY*10000
+    coordsY = coordsY*13000
     coordsX = 1 + coordsX
-    coordsX = coordsX*10000
-    coordsX -= 7985
-    coordsY -= 5000
+    coordsX = coordsX*13000
+    coordsX -= 10385
+    coordsY -= 6200
     #coordsY = 500-coordsY
-    coordsY = 500-coordsY
+    coordsY = 900-coordsY
     i.xCoords = coordsX
     i.yCoords = coordsY
 def drawCanvas():
     for i in trainLineList:
         newStationList = i.stationList[:]
-        print(str(len(newStationList) % 2))
-        print(str(len(newStationList)))
-        print(newStationList)
+        #print(str(len(newStationList) % 2))
+        #print(str(len(newStationList)))
+        #print(newStationList)
         if (len(newStationList)%2)== 0:
             for j in range(0, int(len(newStationList))-1):
                 PointOne = copy.deepcopy(newStationList[0])
                 newStationList.pop(0)
                 PointTwo = copy.deepcopy(newStationList[0])
                 if (PointOne == None) or (PointTwo== None):
-                    print("Yikers")
+                    #print("Yikers")
+                    pass
                 else:
                     w.create_line(PointOne.xCoords+5, PointOne.yCoords+5, PointTwo.xCoords+5, PointTwo.yCoords+5, fill=i.color, width=5)
         else:
@@ -450,12 +451,13 @@ def drawCanvas():
                 PointOne = newStationList.pop(0)
                 PointTwo = newStationList[0]
                 if (PointOne == None) or (PointTwo== None):
-                    print("Yikers")
+                    #print("Yikers")
+                    pass
                 else:
                     w.create_line(PointOne.xCoords+5, PointOne.yCoords+5, PointTwo.xCoords+5, PointTwo.yCoords+5, fill=i.color, width=5)
     for i in stationList:
-        print("(" +str(i.xCoords) + ", " + str(i.yCoords) + ")")
-        print("\n")
+        #print("(" +str(i.xCoords) + ", " + str(i.yCoords) + ")")
+        #print("\n")
         w.create_oval(i.xCoords, i.yCoords, i.xCoords  + 10, i.yCoords + 10, fill="#476042")
         w.create_text(i.xCoords,i.yCoords-9,fill="#000000",font="Times 10 italic bold",
                             text=i.name)
@@ -465,12 +467,12 @@ b1 = Button(master, text="Find Route", command = startUp)
 b2 = Button(master, text="Clear Route", command = clearRoute)
 e1 = Entry(master)
 e2 = Entry(master)
-b1.place(x=1250, y=150)
-e1.place(x=1250, y=180)
-e2.place(x=1250, y=200)
-b2.place(x=1250, y=560)
+b1.place(x=1750, y=150)
+e1.place(x=1750, y=180)
+e2.place(x=1750, y=200)
+b2.place(x=1750, y=560)
 T = Text(master, height = 20, width = 25)
-T.place(x=1250, y= 230)
+T.place(x=1750, y= 230)
 
 mainloop()
 
