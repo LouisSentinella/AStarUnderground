@@ -7,7 +7,8 @@ from tkinter import *
 #*Add cost for changing stations
 #*Render Multiple train lines on one stations
 #*Add ability to go via another station 
-
+global costVal
+costVal = 0.5
 
 canvas_width = 1950
 canvas_height = 900
@@ -83,6 +84,7 @@ class Route(object):
         self.val = val #Known distance plus heuristic
         self.currentStation = currentStation
         self.path = path
+        self.changeCost = 0
         
     def __str__(self):
         report = ""
@@ -207,10 +209,11 @@ def lineTravelled(nodeOne, nodeTwo):
         return(set(a).intersection(b))
     
 def aStarAlgorithm(startLoc, endLoc):
+    global costVal
 
     T.delete('1.0', END)
 
-    routeQueue = pQueue(1000)
+    routeQueue = pQueue(100000)
 
     currentRoute = Route(0,0, [startLoc.name], startLoc)
     routeQueue.addItem(currentRoute)
@@ -241,9 +244,37 @@ def aStarAlgorithm(startLoc, endLoc):
                 fval = haversineFunction(currentRoute.currentStation, i)
                 gval = haversineFunction(i, endLoc)              
     
-                editRoute.fval += fval#this changes the new route to add the new distance
-                editRoute.val = editRoute.fval + gval
 
+                
+                currentTrainLines = currentRoute.currentStation.trainLines
+                firstSameLines = set(currentTrainLines).intersection(i.trainLines)
+
+                oldStation = currentRoute.getSecondToLast()
+                
+                if oldStation == None:
+                    oldSameLines = firstSameLines
+                    
+                else:
+                    oldStation = oldStation.upper()
+                    oldStation = oldStation.replace(" ", "")
+                    oldStation = oldStation.replace("'", "")
+
+                    for k in stationList:
+                        if ((((k.name).upper()).replace(" ", "")).replace("'", "")) == oldStation:
+                            oldStation = k
+                            break
+                    oldTrainLines = oldStation.trainLines
+                    oldSameLines = set(oldTrainLines).intersection(currentTrainLines)
+                
+                sameLines= set(firstSameLines).intersection(oldSameLines)
+                #print(sameLines)
+                #print(len(sameLines))
+                if (len(sameLines)<1):
+                    #print(len(i.trainLines))
+                    editRoute.changeCost += (len(currentRoute.currentStation.trainLines))* costVal
+                    #print("Changing trainlines between", currentRoute.currentStation.name, "&", i.name)
+                editRoute.fval += fval#this changes the new route to add the new distance
+                editRoute.val = editRoute.fval + gval + editRoute.changeCost
                 editRoute.currentStation = i
                 routeQueue.addItem(editRoute)
                 counter += 1#increasing counter used to make route objects
@@ -461,18 +492,30 @@ def drawCanvas():
         w.create_oval(i.xCoords, i.yCoords, i.xCoords  + 10, i.yCoords + 10, fill="#476042")
         w.create_text(i.xCoords,i.yCoords-9,fill="#000000",font="Times 10 italic bold",
                             text=i.name)
-
+def disabledMode():
+    global costVal
+    costVal = 1000
+    
+def nonDisabledMode():
+    global costVal
+    costVal = 0.5
+    
+    
 drawCanvas()
 b1 = Button(master, text="Find Route", command = startUp)
 b2 = Button(master, text="Clear Route", command = clearRoute)
 e1 = Entry(master)
 e2 = Entry(master)
+r1 = Radiobutton(master, text = "Disabled mode", value =1, command=disabledMode )
+r2 =Radiobutton(master, text = "Non Disabled mode", value =2, command=nonDisabledMode )
 b1.place(x=1750, y=150)
 e1.place(x=1750, y=180)
 e2.place(x=1750, y=200)
 b2.place(x=1750, y=560)
 T = Text(master, height = 20, width = 25)
 T.place(x=1750, y= 230)
+r1.place(x=1750, y=590)
+r2.place(x=1750, y=610)
 
 mainloop()
 
