@@ -358,43 +358,7 @@ for i in aList:
 def mainLoopWhile(window):
         window.update_idletasks()
         window.update()
-##def main():
-##
-##    #print(stationList)
-##    for i in stationList:
-##        print(i.name)
-##        
-##    print("\n")#taking inputs and checking whether they are actual stations. 
-##    startIn = str(input("Where would you like to navigate from?"))
-##    endIn = str(input("Where would you like to navigate to?"))
-##    endIn = endIn.upper()
-##    endIn = endIn.replace(" ", "")
-##    endIn = endIn.replace("'", "")
-##    startIn = startIn.upper()
-##    startIn = startIn.replace(" ", "")
-##    startIn = startIn.replace("'", "")
-##    #print(startIn)
-##    #print(endIn)
-##    
-##    
-##    for i in stationList:
-##        if ((((i.name).upper()).replace(" ", "")).replace("'", "")) == startIn:
-##            startStation = i
-##            break
-##    for i in stationList:
-##        if ((((i.name).upper()).replace(" ", "")).replace("'", "")) == endIn:
-##            endStation=i
-##            break
-##    if (startIn == "CABBAGE") or (endIn=="CABBAGE"):
-##        for i in range(0,1000):
-##            globals()["window" + str(i)] = Tk()
-##            globals()["canvas" + str(i)] = Canvas(eval("window" + str(i)), width=1000, height=1000)
-##            eval("canvas" + str(i)).pack()
-##            photo = PhotoImage(file="ING-green-cabbage-2-main.gif")
-##            eval("canvas" + str(i)).create_image(0,0,image=photo, anchor=tkinter.NW)
-##            eval("window" + str(i)).mainloop()
-##            
-##    aStarAlgorithm(startStation, endStation)
+
 
 def main():
 
@@ -423,14 +387,6 @@ def main():
         if ((((i.name).upper()).replace(" ", "")).replace("'", "")) == endIn:
             endStation=i
             break
-    if (startIn == "CABBAGE") or (endIn=="CABBAGE"):
-        for i in range(0,1000):
-            globals()["window" + str(i)] = Tk()
-            globals()["canvas" + str(i)] = Canvas(eval("window" + str(i)), width=1000, height=1000)
-            eval("canvas" + str(i)).pack()
-            photo = PhotoImage(file="ING-green-cabbage-2-main.gif")
-            eval("canvas" + str(i)).create_image(0,0,image=photo, anchor=NW)
-            eval("window" + str(i)).mainloop()
             
     aStarAlgorithm(startStation, endStation)
 def startUp():
