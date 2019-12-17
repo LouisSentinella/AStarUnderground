@@ -270,6 +270,10 @@ def aStarAlgorithm(startLoc, endLoc):
                     #print(len(i.trainLines))
                     editRoute.changeCost += (len(currentRoute.currentStation.trainLines))* costVal
                     #print("Changing trainlines between", currentRoute.currentStation.name, "&", i.name)
+                elif currentRoute.currentStation == nodeBank and i == nodeWaterloo:
+                    editRoute.changeCost += (len(currentRoute.currentStation.trainLines))* costVal
+                elif currentRoute.currentStation == nodeWaterloo and i == nodeBank:
+                    editRoute.changeCost += (len(currentRoute.currentStation.trainLines))* costVal
                 editRoute.fval += fval#this changes the new route to add the new distance
                 editRoute.val = editRoute.fval + gval + editRoute.changeCost
                 editRoute.currentStation = i
@@ -316,6 +320,7 @@ def aStarAlgorithm(startLoc, endLoc):
     for i in currentRoute.path:
         T.insert(END,i + "\n")
     T.insert(END,"\nTotal Distance:\n" + str(round(currentRoute.fval,2)) + "km.")
+    print(currentRoute.val)
     #print(endLoc.path)
   
 
@@ -394,7 +399,7 @@ def startUp():
     except:
         T.delete('1.0', END)
         T.insert(END, "Invalid Input, try again!")
-        #traceback.print_exc()
+        traceback.print_exc()
         main()
 def clearRoute():
     w.delete("all")
@@ -447,7 +452,7 @@ def drawCanvas():
                             text=i.name)
 def disabledMode():
     global costVal
-    costVal = 1000
+    costVal = 10000
     
 def nonDisabledMode():
     global costVal
