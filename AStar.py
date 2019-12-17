@@ -8,7 +8,7 @@ from tkinter import *
 #*Render Multiple train lines on one stations
 #*Add ability to go via another station 
 global costVal
-costVal = 0.5
+costVal = 0.4
 
 canvas_width = 1950
 canvas_height = 900
@@ -23,13 +23,13 @@ w.pack(expand=YES, fill=BOTH)
 class pQueue(object):
 
     ### CONSTRUCTOR 
-    def __init__(self, maxSize):
+    def __init__(self):
 
         #print("A pQueue has been created")
 
         ### Attributes
         self.__qList = []
-        self.__maxSize = maxSize
+        
 
     def __str__(self):
         report = ""
@@ -50,20 +50,17 @@ class pQueue(object):
         else:
             return False
     def addItem(self, item):
-        if self.__isFull():
-            print("Sorry, the priority queue is already full.")
+        if len(self.__qList) == 0 or item.val > self.__qList[len(self.__qList)-1].val: #This my method of sorting the pQueue
+            self.__qList.append(item)    #Instead of sorting it after I add an item, I do an insertion sort with each item i add
         else:
-            if len(self.__qList) == 0 or item.val > self.__qList[len(self.__qList)-1].val: #This my method of sorting the pQueue
-                self.__qList.append(item)    #Instead of sorting it after I add an item, I do an insertion sort with each item i add
-            else:
-                for i in range(0, len(self.__qList)):
-                    if item.val <= self.__qList[i].val:
-                        self.__qList.insert(i, item)
-                        break
-                    
-                    
-            ##self.__qList.append(item)        
-            ##self.__qList = sorted(self.__qList, key=lambda x: x[1])
+            for i in range(0, len(self.__qList)):
+                if item.val <= self.__qList[i].val:
+                    self.__qList.insert(i, item)
+                    break
+                
+                
+        ##self.__qList.append(item)        
+        ##self.__qList = sorted(self.__qList, key=lambda x: x[1])
 
     def getItem(self, value):
         return self.__qList[value]
@@ -212,8 +209,8 @@ def aStarAlgorithm(startLoc, endLoc):
     global costVal
 
     T.delete('1.0', END)
-
-    routeQueue = pQueue(100000)
+    routeQueue = None
+    routeQueue = pQueue()
 
     currentRoute = Route(0,0, [startLoc.name], startLoc)
     routeQueue.addItem(currentRoute)
@@ -454,7 +451,7 @@ def disabledMode():
     
 def nonDisabledMode():
     global costVal
-    costVal = 0.5
+    costVal = 0.4
     
     
 drawCanvas()
