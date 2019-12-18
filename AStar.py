@@ -8,7 +8,7 @@ from tkinter import *
 #*Render Multiple train lines on one stations
 #*Add ability to go via another station 
 global costVal
-costVal = 0.4
+costVal = 0.5
 
 canvas_width = 1950
 canvas_height = 900
@@ -220,16 +220,13 @@ def aStarAlgorithm(startLoc, endLoc):
         
         currentRoute = routeQueue.getQueueObject()
         closedList.append(currentRoute.currentStation.name)
-        #print("Expanding", currentRoute.currentStation)
+
 
         connectedList = []
         
         connectedList = currentRoute.currentStation.connected()
         for i in connectedList:
 
-            #print(i.path)
-            #print(i.name)
-            #print(closedList)
             if i.name not in closedList:
                 globals()["Route" + str(counter)] = copy.deepcopy(currentRoute)
                 editRoute = eval("Route" + str(counter))
@@ -264,16 +261,24 @@ def aStarAlgorithm(startLoc, endLoc):
                     oldSameLines = set(oldTrainLines).intersection(currentTrainLines)
                 
                 sameLines= set(firstSameLines).intersection(oldSameLines)
-                #print(sameLines)
-                #print(len(sameLines))
+
+
                 if (len(sameLines)<1):
-                    #print(len(i.trainLines))
-                    editRoute.changeCost += (len(currentRoute.currentStation.trainLines))* costVal
-                    #print("Changing trainlines between", currentRoute.currentStation.name, "&", i.name)
+                    if costVal == 10000:
+                        editRoute.changeCost += costVal
+                    else:
+                        editRoute.changeCost += (len(currentRoute.currentStation.trainLines))* costVal
+
                 elif currentRoute.currentStation == nodeBank and i == nodeWaterloo:
-                    editRoute.changeCost += (len(currentRoute.currentStation.trainLines))* costVal
+                    if costVal == 10000:
+                        editRoute.changeCost += costVal
+                    else:
+                        editRoute.changeCost += (len(currentRoute.currentStation.trainLines))* costVal
                 elif currentRoute.currentStation == nodeWaterloo and i == nodeBank:
-                    editRoute.changeCost += (len(currentRoute.currentStation.trainLines))* costVal
+                    if costVal == 10000:
+                        editRoute.changeCost += costVal
+                    else:
+                        editRoute.changeCost += (len(currentRoute.currentStation.trainLines))* costVal
                 editRoute.fval += fval#this changes the new route to add the new distance
                 editRoute.val = editRoute.fval + gval + editRoute.changeCost
                 editRoute.currentStation = i
@@ -281,10 +286,6 @@ def aStarAlgorithm(startLoc, endLoc):
                 counter += 1#increasing counter used to make route objects
         currentRoute = routeQueue.getItem(0)
 
-
-        #print(routeQueue)
-        #input("")
-    #T.insert(END,"\n")
     for i in range(0, len(currentRoute.path)-1):
         stationOne = currentRoute.path[i].upper()
         stationOne = stationOne.replace(" ", "")
@@ -292,8 +293,7 @@ def aStarAlgorithm(startLoc, endLoc):
         stationTwo = currentRoute.path[i+1].upper()
         stationTwo = stationTwo.replace(" ", "")
         stationTwo = stationTwo.replace("'", "")
-        # print(startIn)
-        # print(endIn)
+
 
         for i in stationList:
             if ((((i.name).upper()).replace(" ", "")).replace("'", "")) == stationOne:
@@ -320,7 +320,7 @@ def aStarAlgorithm(startLoc, endLoc):
     for i in currentRoute.path:
         T.insert(END,i + "\n")
     T.insert(END,"\nTotal Distance:\n" + str(round(currentRoute.fval,2)) + "km.")
-    print(currentRoute.val)
+    print(currentRoute.changeCost)
     #print(endLoc.path)
   
 
@@ -456,7 +456,7 @@ def disabledMode():
     
 def nonDisabledMode():
     global costVal
-    costVal = 0.4
+    costVal = 0.5
     
     
 drawCanvas()
