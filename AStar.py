@@ -8,7 +8,7 @@ from tkinter import *
 #*Render Multiple train lines on one stations
 #*Add ability to go via another station 
 global costVal
-costVal = 0.5
+costVal = 0.8
 
 canvas_width = 1950
 canvas_height = 900
@@ -456,7 +456,7 @@ def disabledMode():
     
 def nonDisabledMode():
     global costVal
-    costVal = 0.5
+    costVal = 0.8
     
     
 drawCanvas()
