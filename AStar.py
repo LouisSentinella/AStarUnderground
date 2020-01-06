@@ -12,7 +12,7 @@ costVal = 0.8
 
 canvas_width = 1950
 canvas_height = 900
-
+##Hello
 master = Tk()
 master.title("Points")
 w = Canvas(master,
