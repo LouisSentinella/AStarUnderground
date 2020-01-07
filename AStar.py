@@ -357,8 +357,8 @@ for i in aList:
         print("There is an error with your data – please correct it.")      
 
 def mainLoopWhile(window):
-        window.update_idletasks()
-        window.update()
+    window.update_idletasks()
+    window.update()
 
 
 def main():
