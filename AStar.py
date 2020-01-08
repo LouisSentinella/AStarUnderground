@@ -10,15 +10,20 @@ from tkinter import *
 
 costVal = 0.8
 
-canvas_width = 1950
-canvas_height = 900
+
+
 
 master = Tk()
+
+canvasWidth = master.winfo_screenwidth()
+canvasHeight = master.winfo_screenheight()
+master.geometry("%dx%d+0+0" % (canvasWidth, canvasHeight))
 master.title("Points")
 w = Canvas(master,
-           width=canvas_width,
-           height=canvas_height)
+           width=canvasWidth,
+           height=canvasHeight)
 w.pack(expand=YES, fill=BOTH)
+
 #
 class pQueue(object):
 
@@ -410,14 +415,24 @@ def clearRoute():
 for i in stationList:
     coordsY= i.lat
     coordsX = i.long
-    coordsY = coordsY - 51
-    coordsY = coordsY*13000
+    
+    coordsY = coordsY - 51.48
+    coordsY= coordsY *10
+    coordsY = coordsY * canvasHeight
+    coordsY = canvasHeight - coordsY
+    coordsY -= canvasHeight * 0.3
+
     coordsX = 1 + coordsX
-    coordsX = coordsX*13000
-    coordsX -= 10385
-    coordsY -= 6200
-    #coordsY = 500-coordsY
-    coordsY = 900-coordsY
+    coordsX -= 0.8
+    coordsX = coordsX * 10    
+    tempCanvasWidth = canvasWidth -250
+    tempCanvasWidth = tempCanvasWidth / 126
+    tempCanvasWidth = tempCanvasWidth * 100
+    coordsX = coordsX * (tempCanvasWidth)
+
+
+    print(coordsX)
+    print(coordsY)
     i.xCoords = coordsX
     i.yCoords = coordsY
 def drawCanvas():
@@ -457,7 +472,7 @@ def disabledMode():
     
 def nonDisabledMode():
     global costVal
-    costVal = 1.3
+    costVal = 0.8
     
     
 drawCanvas()
@@ -467,14 +482,14 @@ e1 = Entry(master)
 e2 = Entry(master)
 r1 = Radiobutton(master, text = "Disabled mode", value =1, command=disabledMode )
 r2 =Radiobutton(master, text = "Non Disabled mode", value =2, command=nonDisabledMode )
-b1.place(x=1750, y=150)
-e1.place(x=1750, y=180)
-e2.place(x=1750, y=200)
-b2.place(x=1750, y=560)
+b1.place(x=canvasWidth-170, y=150)
+e1.place(x=canvasWidth-170, y=180)
+e2.place(x=canvasWidth-170, y=200)
+b2.place(x=canvasWidth-170, y=560)
 T = Text(master, height = 20, width = 25)
-T.place(x=1750, y= 230)
-r1.place(x=1750, y=590)
-r2.place(x=1750, y=610)
+T.place(x=canvasWidth-170, y= 230)
+r1.place(x=canvasWidth-170, y=590)
+r2.place(x=canvasWidth-170, y=610)
 
 mainloop()
 
