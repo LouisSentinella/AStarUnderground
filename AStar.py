@@ -431,8 +431,8 @@ for i in stationList:
     coordsX = coordsX * (tempCanvasWidth)
 
 
-    print(coordsX)
-    print(coordsY)
+    #print(coordsX)
+    #print(coordsY)
     i.xCoords = coordsX
     i.yCoords = coordsY
 def drawCanvas():
